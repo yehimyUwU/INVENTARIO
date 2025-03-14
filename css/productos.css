@@ -1,0 +1,90 @@
+/* Estilos generales */
+body {
+    background-color: #eef4f7;
+    font-family: Arial, sans-serif;
+}
+
+/* Barra de navegación */
+.navbar {
+    transition: background-color 0.3s ease-in-out;
+}
+.navbar-brand {
+    font-weight: bold;
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: #80bee2;
+    transition: color 0.3s;
+}
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #afeffa;
+}
+
+/* Card */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(2, 180, 250, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    width: 18rem;
+}
+.card:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 6px 15px rgba(13, 105, 133, 0.15);
+}
+.card-header {
+    background-color: #96c1cec4;
+    color: #32658bce;
+    font-weight: bold;
+    padding: 10px;
+    font-size: 1.2em;
+}
+.card-body {
+    padding: 20px;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #80b8ec;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.btn-primary:hover {
+    background-color: #a1d1f1;
+    transform: scale(1.05);
+}
+.btn-danger {
+    background-color: #7d9efa;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.btn-danger:hover {
+    background-color: #7784fa;
+    transform: scale(1.05);
+}
+
+/* Transiciones en tablas */
+.table {
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(100, 100, 100, 0.1);
+}
+.table tbody tr {
+    transition: background-color 0.3s ease-in-out;
+}
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Modales */
+.modal-header {
+    background-color: #31a5d3;
+    color: #ffffff;
+}
+.modal-content {
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(70, 96, 241, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+.modal.fade .modal-dialog {
+    transform: translateY
+}
