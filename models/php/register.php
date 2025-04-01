@@ -1,5 +1,5 @@
 <?php
-require 'conexion.php';
+require '../../config/conexion.php'; // Ruta ajustada
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $tipo_documento = $_POST['tipo_documento'];

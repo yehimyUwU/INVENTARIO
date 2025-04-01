@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'conexion.php';
+require '../../config/conexion.php';
 
 $documento = $_POST['username'] ?? null;
 $password = $_POST['password'] ?? null;

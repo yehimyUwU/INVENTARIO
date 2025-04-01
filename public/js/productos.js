@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function cargarCategorias() {
-    fetch('cargar_categorias.php')
+    fetch('../../models/php/cargar_categorias.php') // Ruta corregida
         .then(response => response.json())
         .then(data => {
             const categoriaSelect = document.getElementById('categoriaGeneral');
@@ -33,8 +33,13 @@ function cargarCategorias() {
 
 function cargarSubcategorias() {
     const categoriaId = document.getElementById('categoriaGeneral').value;
-    fetch(`cargar_subcategorias.php?id_categoria=${categoriaId}`)
-        .then(response => response.json())
+    fetch(`../../models/php/cargar_subcategorias.php?id_categoria=${categoriaId}`) // Ruta corregida
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error HTTP: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             const subcategoriaSelect = document.getElementById('subcategoria');
             subcategoriaSelect.innerHTML = '<option value="">Seleccione una subcategoría</option>';
@@ -52,7 +57,7 @@ function cargarSubcategorias() {
 }
 
 function cargarProductos() {
-    fetch('cargar_productos.php')
+    fetch('../../models/php/cargar_productos.php') // Ruta corregida
         .then(response => response.json())
         .then(data => {
             const listaProductos = document.getElementById('listaProductos');
@@ -77,7 +82,7 @@ function cargarProductos() {
 }
 
 function cargarUsuarios() {
-    fetch('cargar_usuarios.php')
+    fetch('../../models/php/cargar_usuarios.php') // Ruta corregida
         .then(response => response.json())
         .then(data => {
             const listaUsuarios = document.getElementById('listaUsuarios');
@@ -103,7 +108,7 @@ function cargarUsuarios() {
 document.getElementById('formularioProducto').addEventListener('submit', function(event) {
     event.preventDefault();
     const formData = new FormData(this);
-    fetch('registrar_producto.php', {
+    fetch('../../models/php/registrar_producto.php', { // Ruta corregida
         method: 'POST',
         body: formData
     })
@@ -128,11 +133,16 @@ document.getElementById('formularioProducto').addEventListener('submit', functio
 document.getElementById('formularioUsuario').addEventListener('submit', function(event) {
     event.preventDefault();
     const formData = new FormData(this);
-    fetch('registrar_usuario.php', {
+    fetch('../../models/php/registrar_usuario.php', { // Ruta corregida
         method: 'POST',
         body: formData
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.success) {
             alert('Usuario registrado con éxito');

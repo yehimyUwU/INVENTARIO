@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php';
+require_once '../../config/conexion.php'; // Ruta ajustada
 
 $tipo_documento = $_POST['tipo_documento'];
 $documento = $_POST['documento'];
@@ -11,29 +11,25 @@ $email = $_POST['email'];
 $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 $rol = $_POST['rol'];
 
+$conn = Conexion::conectar(); // Asegurarse de inicializar la conexión
+
 $sql = "INSERT INTO usuario (tipo_documento, documento, nombre, apellido, fecha_nacimiento, genero, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ssssssss", $tipo_documento, $documento, $nombre, $apellido, $fecha_nacimiento, $genero, $email, $password);
 
 try {
-    if ($stmt->execute()) {
-        $id_usuario = $stmt->insert_id;
-        $sql_rol = "INSERT INTO usuario_rol (id_usuario, id_rol) VALUES (?, (SELECT id_rol FROM rol_usuario WHERE nombre = ?))";
-        $stmt_rol = $conn->prepare($sql_rol);
-        $stmt_rol->bind_param("is", $id_usuario, $rol);
-        $stmt_rol->execute();
-        echo json_encode(["status" => "success", "message" => "Registro exitoso"]);
-    } else {
-        throw new Exception($stmt->error);
-    }
-} catch (Exception $e) {
-    if ($conn->errno === 1062) {
+    $stmt->execute([$tipo_documento, $documento, $nombre, $apellido, $fecha_nacimiento, $genero, $email, $password]);
+    $id_usuario = $conn->lastInsertId();
+
+    $sql_rol = "INSERT INTO usuario_rol (id_usuario, id_rol) VALUES (?, (SELECT id_rol FROM rol_usuario WHERE nombre = ?))";
+    $stmt_rol = $conn->prepare($sql_rol);
+    $stmt_rol->execute([$id_usuario, $rol]);
+
+    echo json_encode(["status" => "success", "message" => "Registro exitoso"]);
+} catch (PDOException $e) {
+    if ($e->getCode() === '23000') { // Código de error para duplicados
         echo json_encode(["status" => "error", "message" => "El documento o correo ya está registrado"]);
     } else {
         echo json_encode(["status" => "error", "message" => "Error: " . $e->getMessage()]);
     }
 }
-
-$stmt->close();
-$conn->close();
 ?>

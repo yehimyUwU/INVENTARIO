@@ -14,7 +14,7 @@ function verificarLogin() {
         return;
     }
 
-    fetch("../php/login.php", { // Asegúrate de que este archivo maneje la lógica de inicio de sesión
+    fetch("../../models/php/login.php", { // Ajustar la ruta
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
@@ -79,7 +79,7 @@ document.getElementById("signupForm").addEventListener("submit", async function 
     const signupMessage = document.getElementById("signupMessage");
 
     try {
-        const response = await fetch("../php/registro.php", {
+        const response = await fetch("../../models/php/registro.php", { // Ajustar la ruta
             method: "POST",
             body: formData
         });
